@@ -1,0 +1,230 @@
+/* ==========================================================================
+   STUDIO 27 — owner sign-in (demo) styles
+   Loaded after styles.css on purpose: this page reuses the public site's
+   design tokens (--cream, --brown, --clay, .brand, .button, .dark, .skip-link,
+   the :focus-visible rings and the reduced-motion rules) and adds only the
+   scoped .login-* components on top.
+
+   Honest scope: this is a demonstration screen only. It is not authentication
+   and it does not protect admin.html — see login.js and README.md.
+   ========================================================================== */
+
+/* --- Page ----------------------------------------------------------------- */
+/* A single centred column. The faint vertical wash keeps the cream background
+   from looking flat without introducing a gradient the brand would not use. */
+.login-body{
+  min-height:100vh;
+  background:
+    linear-gradient(180deg,#f7f2ea 0%,var(--cream) 46%,#efe8dc 100%);
+}
+
+.login-main{
+  display:grid;
+  place-items:center;
+  min-height:100vh;
+  padding:clamp(22px,5vw,58px) 5%;
+}
+.login-main:focus{outline:none}
+
+/* --- Card ----------------------------------------------------------------- */
+.login-card{
+  width:100%;
+  max-width:452px;
+  padding:clamp(26px,4.4vw,42px);
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-top:3px solid var(--brown);
+  border-radius:3px;
+  box-shadow:0 15px 45px #5e463010;
+}
+
+.login-brand{display:inline-flex;margin-bottom:26px}
+/* The shared .clay (#b47d5b) only reaches ~3:1 on a light background, so the
+   wordmark's "27" steps down to the darker clay tone here. */
+.login-brand .clay{color:var(--clay-text)}
+
+/* Reuses the public site's .eyebrow; only the spacing under it changes. */
+.login-eyebrow{margin:0 0 12px}
+
+.login-title{
+  margin:0 0 12px;
+  font:800 clamp(25px,4.4vw,34px)/1.12 var(--display);
+  letter-spacing:-.035em;
+}
+.login-title em{
+  font:italic 400 1.06em/1 var(--serif);
+  color:var(--clay-text);
+  letter-spacing:-.01em;
+}
+
+.login-sub{
+  margin:0 0 22px;
+  font-size:13px;
+  line-height:1.7;
+  color:var(--muted);
+  max-width:38ch;
+}
+
+/* --- Demo warning --------------------------------------------------------- */
+/* The required notice. Deliberately the most prominent block on the page:
+   larger than the fine print, clay-ruled, and never collapsible. */
+.login-warning{
+  margin:0 0 24px;
+  padding:13px 15px;
+  background:#f0e7da;
+  border:1px solid var(--line);
+  border-left:3px solid var(--clay);
+  border-radius:3px;
+  font-size:12px;
+  line-height:1.75;
+  color:#6a5f54;
+}
+.login-warning b{
+  display:block;
+  margin-bottom:5px;
+  font-size:11px;
+  letter-spacing:.07em;
+  color:#8a3b30;
+}
+.login-warning code,.login-demo-creds code,.login-foot code{
+  font-family:var(--sans);
+  font-size:11px;
+  font-weight:700;
+  line-height:1.6;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:2px;
+  padding:2px 5px;
+}
+
+/* --- Form ----------------------------------------------------------------- */
+.login-form{display:grid;gap:16px}
+
+.login-field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.login-field label{
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.login-field input{
+  width:100%;
+  min-width:0;
+  min-height:46px;
+  padding:12px 13px;
+  font-size:13px;
+  color:var(--ink);
+  background:var(--cream);
+  border:1px solid #e0d7cc;
+  border-radius:2px;
+  outline:none;
+  transition:border-color .15s,background .15s;
+}
+.login-field input:hover{border-color:#cbbba6}
+.login-field input:focus{background:#fff}
+
+/* Password + show/hide. The button sits inside the field's right edge, so its
+   tap target inherits the input height (46px) and clears 44x44. */
+.login-password{position:relative;display:flex}
+.login-password input{padding-right:80px}
+.login-toggle{
+  position:absolute;
+  top:1px;
+  right:1px;
+  bottom:1px;
+  min-width:66px;
+  padding:0 12px;
+  border:0;
+  border-left:1px solid var(--line);
+  border-radius:0 2px 2px 0;
+  background:transparent;
+  color:var(--clay-text);
+  font:800 10px var(--sans);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:background .15s;
+}
+.login-toggle:hover{background:#f0e7da}
+
+/* --- Error ---------------------------------------------------------------- */
+/* role="alert" in the markup; `hidden` keeps it out of the flow until needed. */
+.login-error{
+  margin:0;
+  padding:11px 13px;
+  background:#f6e6e3;
+  border:1px solid #dcaea6;
+  border-radius:3px;
+  font-size:12px;
+  line-height:1.6;
+  color:#8a3b30;
+}
+
+.login-submit{width:100%;justify-content:center}
+
+/* --- Demo credentials ----------------------------------------------------- */
+.login-demo-creds{
+  display:grid;
+  gap:7px;
+  margin:24px 0 0;
+  padding:13px 15px;
+  background:var(--cream);
+  border:1px dashed #cbbba6;
+  border-radius:3px;
+  font-size:12px;
+}
+.login-demo-creds b{
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.login-demo-creds span{
+  display:block;
+  line-height:1.7;
+  color:var(--muted);
+}
+
+/* --- Fine print ----------------------------------------------------------- */
+.login-foot{
+  margin:18px 0 0;
+  font-size:12px;
+  line-height:1.7;
+  color:var(--muted);
+}
+.login-foot + .login-foot{margin-top:12px}
+
+.login-back{
+  font-size:12px;
+  font-weight:700;
+  color:var(--ink);
+  border-bottom:1px solid #b5a697;
+  padding-bottom:3px;
+}
+.login-back:hover{color:var(--clay-text);border-bottom-color:var(--clay-text)}
+
+/* --- Tablet --------------------------------------------------------------- */
+@media(max-width:640px){
+  .login-main{padding:26px 5% 40px}
+  .login-card{padding:26px 22px}
+  .login-brand{margin-bottom:22px}
+  .login-warning{margin-bottom:20px}
+}
+
+/* --- Phone ---------------------------------------------------------------- */
+@media(max-width:420px){
+  .login-card{padding:22px 17px}
+  .login-sub{font-size:12.5px}
+  .login-password input{padding-right:70px}
+  .login-toggle{min-width:58px;padding:0 9px}
+}
+
+/* --- Short viewports ------------------------------------------------------ */
+/* Landscape phones: keep the card usable by trimming the outer padding rather
+   than trapping the form behind the fold. */
+@media(max-height:660px){
+  .login-main{padding-top:20px;padding-bottom:20px;align-content:start}
+}

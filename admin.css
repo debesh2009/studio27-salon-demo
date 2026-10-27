@@ -1,0 +1,262 @@
+/* ==========================================================================
+   STUDIO 27 — owner dashboard (demo) styles
+   Loaded after styles.css on purpose: the dashboard reuses the public site's
+   design tokens (.skip-link, .button, .toast, .brand, .eyebrow, focus rings,
+   reduced-motion rules), and adds only scoped .adm-* components on top.
+   Nothing here is linked from the public website.
+   ========================================================================== */
+
+/* --- Shell ---------------------------------------------------------------- */
+/* The dashboard markup ships with the `hidden` attribute so that a visitor
+   without the demo session never sees it — not even for the instant before
+   admin.js redirects them to the sign-in screen. `display:flex` below would
+   otherwise beat the browser's own [hidden] rule, so it is re-stated here (the
+   same reason .adm-backdrop[hidden] exists further down). admin.js removes the
+   attribute once the session flag has been checked. */
+.adm-shell{display:flex;min-height:100vh}
+.adm-shell[hidden]{display:none}
+
+/* --- Sidebar -------------------------------------------------------------- */
+/* Fixed on desktop: the dark-brown rail stays put while the cream workspace
+   scrolls. Below 1023px it becomes an off-canvas drawer (see the media query). */
+.adm-sidebar{position:fixed;top:0;bottom:0;left:0;z-index:30;width:258px;background:var(--brown);color:#e2d3c2;padding:20px 14px 22px;display:flex;flex-direction:column;gap:15px;overflow-y:auto}
+
+/* The shared .brand colours are tuned for a cream background, so they are
+   re-pointed here for the brown sidebar. */
+.adm-sidebar .brand{color:#f6eee3;gap:10px}
+.adm-sidebar .brand-mark{border-color:#e2d3c2;color:#f6eee3;width:38px;height:38px;font-size:18px}
+.adm-sidebar .brand small{color:#e2d3c2}
+.adm-sidebar .brand .clay{color:#e6b58d}
+
+.adm-badge{display:inline-flex;align-items:center;align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.18em;padding:5px 9px;border-radius:999px;background:var(--clay);color:#231710}
+.adm-sidebar .adm-badge{background:#f6eee3;color:var(--brown)}
+
+.adm-nav ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.adm-nav a{display:flex;align-items:center;gap:11px;min-height:44px;padding:11px 12px;border-radius:3px;border-left:3px solid transparent;font-size:13px;font-weight:600;color:#e2d3c2}
+.adm-nav a:hover{background:#f6eee314;color:#fffaf1}
+.adm-nav a[aria-current="page"]{background:#f6eee321;color:#fffaf1;border-left-color:var(--clay)}
+.adm-nav a svg{width:17px;height:17px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.adm-count{margin-left:auto;font-size:11px;font-weight:800;background:#f6eee3;color:var(--brown);padding:2px 8px;border-radius:999px}
+
+.adm-sidebar-note{margin:auto 4px 0;font-size:11px;line-height:1.65;color:#e2d3c2}
+.adm-sidebar-back{display:block;margin:0 4px;padding-top:13px;border-top:1px solid #f6eee32b;font-size:12px;font-weight:700;color:#fffaf1}
+
+.adm-backdrop[hidden]{display:none}
+
+/* --- Main column ---------------------------------------------------------- */
+/* The sidebar is out of flow (position:fixed), so the workspace is offset by
+   its width instead of being laid out beside it. */
+.adm-main-col{flex:1;min-width:0;margin-left:258px;display:flex;flex-direction:column}
+
+.adm-topbar{position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-height:64px;padding:9px 4%;border-bottom:1px solid var(--line);background:#f4efe6ed;backdrop-filter:blur(12px)}
+.adm-topbar-heading{min-width:0}
+.adm-topbar-title{margin:0;font:800 16px var(--display);letter-spacing:-.01em;line-height:1.2}
+.adm-topbar-sub{margin:2px 0 0;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.adm-topbar-sep{margin:0 6px}
+.adm-topbar-link{margin-left:auto;font-size:11px;font-weight:700;border-bottom:1px solid #b8a18a;padding-bottom:3px}
+.adm-badge-inline{margin-left:auto}
+.adm-badge-inline + .adm-topbar-link{margin-left:0}
+
+/* Log out sits last in the top bar's right-hand group, so it must not grab an
+   auto margin of its own. It is a plain link: there is no session to end. */
+.adm-logout{margin-left:0;flex:0 0 auto}
+
+.adm-menu-btn{display:none;width:44px;height:44px;padding:0;align-items:center;justify-content:center;flex-direction:column;gap:4px;border:1px solid var(--line);background:var(--paper);border-radius:50%;cursor:pointer}
+.adm-menu-btn i{display:block;width:15px;height:1.5px;background:var(--ink)}
+
+.adm-main{flex:1;padding:26px 4% 70px}
+.adm-view{max-width:1240px}
+.adm-view:focus{outline:none}
+
+/* --- Notices -------------------------------------------------------------- */
+.adm-demo-banner{margin:0 0 22px;padding:13px 16px;background:#f0e7da;border:1px solid var(--line);border-left:3px solid var(--clay);border-radius:3px;font-size:12.5px;line-height:1.7;color:#6a5f54;max-width:860px}
+.adm-demo-banner b{color:var(--ink)}
+.adm-demo-banner-tight{margin:18px 0 0}
+.adm-note{margin:16px 0 0;font-size:11.5px;line-height:1.7;color:var(--muted);max-width:760px}
+
+/* --- View headings -------------------------------------------------------- */
+.adm-view-head{margin:0 0 22px}
+.adm-view-title{margin:0 0 6px;font:800 clamp(23px,3vw,33px)/1.1 var(--display);letter-spacing:-.03em}
+.adm-view-sub{margin:0;font-size:12.5px;line-height:1.55;color:var(--muted);max-width:640px}
+
+/* --- Summary cards -------------------------------------------------------- */
+/* One shared surface split by hairlines instead of four separate boxes: the
+   heavy 3px colour bar is gone, and the status colour survives as a small dot
+   that matches the legend below. Four across only where there is room for it,
+   two per row below that. */
+.adm-cards{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:24px;background:var(--paper);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.adm-card{padding:20px 22px;border-left:1px solid var(--line)}
+.adm-card:first-child{border-left:0}
+.adm-card-label{display:flex;align-items:center;gap:8px;margin:0;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.adm-card-label::before{content:"";flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--accent,var(--brown))}
+.adm-stat{margin:12px 0 6px;font:800 clamp(28px,3.2vw,38px)/1.05 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.adm-card-note{margin:0;font-size:11.5px;line-height:1.5;color:var(--muted)}
+/* The dot hues match the status pills and the legend, so the four figures stay
+   readable at a glance without needing a coloured border. */
+.adm-card-total{--accent:var(--brown)}
+.adm-card-pending{--accent:#8a5a1f}
+.adm-card-confirmed{--accent:#2f5c46}
+.adm-card-completed{--accent:#6a4a2f}
+
+/* Two per row once four would be too narrow to compare. */
+@media(max-width:1023px){
+.adm-cards{grid-template-columns:repeat(2,1fr)}
+.adm-card{border-top:1px solid var(--line)}
+.adm-card:nth-child(-n+2){border-top:0}
+.adm-card:nth-child(odd){border-left:0}
+}
+
+/* --- Panels --------------------------------------------------------------- */
+.adm-panel{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:19px 21px}
+.adm-panel + .adm-panel{margin-top:18px}
+.adm-panel-title{margin:0 0 4px;font:700 12.5px var(--display);letter-spacing:.12em;text-transform:uppercase}
+.adm-panel-sub{margin:0;font-size:12px;line-height:1.55;color:var(--muted)}
+
+/* --- Dashboard composition (wide screens) --------------------------------- */
+/* The cards keep the full width; below them the two panels sit side by side
+   instead of stacking as two mostly empty boxes. "Next up" gets the wider
+   share because its rows carry a name, a date and a status pill. */
+@media(min-width:1024px){
+#view-dashboard{display:grid;grid-template-columns:2fr 3fr;gap:18px}
+/* display:grid would otherwise beat the [hidden] attribute, which would leave
+   this view on screen underneath the others — so it is re-stated. */
+#view-dashboard[hidden]{display:none}
+#view-dashboard > .adm-view-head{grid-column:1/-1;margin-bottom:0}
+#view-dashboard > .adm-cards{grid-column:1/-1;margin-bottom:0}
+#view-dashboard > .adm-panel{min-width:0}
+#view-dashboard > .adm-panel + .adm-panel{margin-top:0}
+/* In half the width the date must be allowed to wrap rather than overflow. */
+#view-dashboard .adm-list li{flex-wrap:wrap}
+#view-dashboard .adm-list-when{white-space:normal}
+}
+
+.adm-split{display:flex;height:10px;margin:15px 0 16px;border-radius:999px;overflow:hidden;background:#e4d7c6}
+.adm-split span{display:block;height:100%}
+.adm-legend{list-style:none;margin:0;padding:0;display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}
+.adm-legend li{display:flex;align-items:center;gap:9px;font-size:12px}
+.adm-legend b{margin-left:auto;font:700 15px var(--display);font-variant-numeric:tabular-nums}
+.adm-dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;background:var(--st,#8b8175)}
+
+.adm-list{list-style:none;margin:16px 0 0;padding:0}
+.adm-list li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:13px}
+.adm-list li:first-child{border-top:0;padding-top:0}
+.adm-list-when{margin-left:auto;color:var(--muted);font-size:12px;white-space:nowrap}
+.adm-list-empty{margin:14px 0 0;font-size:12px;color:var(--muted)}
+
+/* --- Toolbar / filters ---------------------------------------------------- */
+.adm-toolbar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px;padding:16px 18px;margin-bottom:14px;background:var(--paper);border:1px solid var(--line);border-radius:3px}
+.adm-field{display:flex;flex-direction:column;gap:7px;flex:1 1 165px;min-width:0}
+.adm-field label{margin:0;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.adm-field input,.adm-field select{min-height:42px;padding:10px 12px;font-size:13px;background:var(--cream);border-radius:3px}
+.adm-field-btn{flex:0 0 auto}
+
+.adm-result-count{margin:0 0 12px;font-size:12px;color:var(--muted)}
+
+/* --- Buttons (shared .button, resized for the console) -------------------- */
+.adm-body .button{justify-content:center;gap:12px;padding:12px 18px;min-height:44px;white-space:nowrap;font-size:12px}
+.adm-btn{background:var(--ink);color:#fffaf1}
+.adm-btn:focus-visible{outline:3px solid #fffaf1;outline-offset:2px}
+.adm-btn-ghost{background:transparent;border-color:#b8a18a;color:var(--ink)}
+.adm-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+/* --- Table ---------------------------------------------------------------- */
+.adm-table-wrap{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:3px}
+.adm-table{width:100%;border-collapse:collapse;font-size:13px}
+.adm-table th{padding:13px 16px;text-align:left;white-space:nowrap;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+.adm-table td{padding:15px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+.adm-table tbody tr:last-child td{border-bottom:0}
+.adm-table tbody tr:hover{background:#f4efe680}
+.adm-cell-name{display:flex;flex-direction:column;gap:3px}
+.adm-cell-name b{font-weight:700}
+.adm-cell-name .adm-ref,.adm-ref{font-size:10px;letter-spacing:.12em;color:var(--muted)}
+.adm-date{white-space:nowrap}
+.adm-ref-cell{white-space:nowrap;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted)}
+/* Prices are money: right-align the Services price column so the figures line
+   up, and give them tabular digits. Scoped to #view-services so the equally
+   numbered appointment columns stay left-aligned. */
+#view-services .adm-table th:nth-child(2),
+#view-services .adm-table td[data-label="Demo price"]{text-align:right;font-variant-numeric:tabular-nums}
+.adm-status-select{width:100%;max-width:170px;min-height:44px;padding:9px 11px;font-size:12px}
+.adm-empty{padding:28px 16px;text-align:center;font-size:12px;color:var(--muted)}
+/* Row controls in the Services table (in-memory demo add / edit / delete). */
+.adm-row-actions{display:flex;flex-wrap:wrap;gap:8px}
+.adm-row-actions .button{min-height:44px;padding:10px 13px;font-size:12px;white-space:nowrap}
+
+/* --- Status pills --------------------------------------------------------- */
+/* The leading dot in the pill's own colour makes the status legible at a glance
+   even where the tinted background is faint, and it matches the card labels and
+   the dashboard legend. */
+.adm-status{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 11px;border-radius:999px;border:1px solid var(--st-line,#ded5c8);background:var(--st-bg,#f0e7da);color:var(--st,#6a5f54)}
+.adm-status::before{content:"";flex:0 0 auto;width:6px;height:6px;border-radius:50%;background:currentColor}
+[data-status="Pending"]{--st:#8a5a1f;--st-bg:#f7ead6;--st-line:#dcae72}
+[data-status="Confirmed"]{--st:#2f5c46;--st-bg:#e6f1ea;--st-line:#9dc3ae}
+[data-status="Completed"]{--st:#6a4a2f;--st-bg:#ece3d6;--st-line:#c3ae95}
+[data-status="Cancelled"]{--st:#8a3b30;--st-bg:#f6e6e3;--st-line:#dcaea6}
+
+/* --- Definition lists (Settings) ------------------------------------------ */
+.adm-dl{margin:16px 0 0}
+.adm-dl > div{display:flex;align-items:baseline;justify-content:space-between;gap:18px;padding:12px 0;border-top:1px solid var(--line)}
+.adm-dl > div:first-child{border-top:0;padding-top:0}
+.adm-dl dt{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);flex:0 0 auto}
+.adm-dl dd{margin:0;font-size:13px;text-align:right;max-width:62%}
+.adm-dl code{font-size:12px;background:var(--cream);border:1px solid var(--line);border-radius:2px;padding:1px 5px}
+.adm-dl-note{display:block;font-size:11px;color:var(--muted);margin-top:3px}
+
+/* --- Utilities ------------------------------------------------------------ */
+.adm-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* --- Drawer behaviour (tablet + mobile) ----------------------------------- */
+@media(max-width:1023px){
+.adm-menu-btn{display:inline-flex}
+/* The rail is now a drawer, so the workspace takes the full width again. */
+.adm-main-col{margin-left:0}
+/* visibility:hidden keeps the closed drawer out of the tab order and out of
+   the accessibility tree, while still allowing the slide transition. */
+.adm-sidebar{position:fixed;top:0;bottom:0;left:0;z-index:40;width:278px;transform:translateX(-100%);visibility:hidden;transition:transform .22s ease,visibility .22s ease;box-shadow:0 0 44px #29251f4d}
+.adm-sidebar.open{transform:none;visibility:visible}
+.adm-backdrop{position:fixed;inset:0;z-index:35;background:#29251f66}
+}
+
+/* --- Table becomes stacked cards (tablet + mobile) ------------------------- */
+/* Matches the 1023px drawer breakpoint above so that the tables and the rail
+   switch over together, and the 1024px+ side-by-side dashboard layout below
+   only ever coexists with the full-width table. */
+@media(max-width:1023px){
+.adm-table-wrap{overflow:visible;background:transparent;border:0;border-radius:0}
+.adm-table{display:block}
+.adm-table thead{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.adm-table tbody{display:block}
+.adm-table tr{display:block;margin-bottom:12px;padding:5px 0;background:var(--paper);border:1px solid var(--line);border-radius:3px}
+.adm-table tr:hover{background:var(--paper)}
+.adm-table td{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 14px;border-bottom:0;text-align:right}
+.adm-table td::before{content:attr(data-label);flex:0 0 auto;text-align:left;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.adm-table td:first-child{padding-top:13px}
+.adm-table td:last-child{padding-bottom:13px}
+.adm-cell-name{align-items:flex-end}
+.adm-status-select{max-width:none;flex:1 1 auto}
+.adm-empty{text-align:left}
+}
+
+/* --- Phones --------------------------------------------------------------- */
+@media(max-width:600px){
+.adm-main{padding:20px 4% 60px}
+.adm-topbar{padding:9px 4%}
+.adm-topbar-title{font-size:15px}
+.adm-topbar-sub{font-size:10px}
+/* Keep the DEMO MODE label visible on phones — it just gets smaller. */
+.adm-badge-inline{font-size:8px;padding:4px 7px;letter-spacing:.14em}
+/* Three controls share the bar at this width, so tighten them rather than wrap.
+   The 44px minimum touch target is preserved. */
+.adm-topbar{gap:9px}
+.adm-topbar-link{font-size:10px}
+.adm-logout{padding:10px 13px;font-size:10px}
+/* The cards keep the two-across grid from the 1023px rule above — they are no
+   longer four separate boxes, so there is no gap to set here (a gap would break
+   the hairline seams of the single shared surface). */
+.adm-toolbar{padding:14px;gap:12px}
+.adm-field{flex:1 1 100%}
+.adm-field-btn{flex:1 1 100%}
+.adm-dl > div{flex-direction:column;align-items:flex-start;gap:5px}
+.adm-dl dd{text-align:left;max-width:100%}
+.adm-legend{grid-template-columns:1fr 1fr}
+}

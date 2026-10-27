@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#72523d">
+<!-- Demo interface: kept out of search engines on purpose. -->
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="STUDIO 27 owner dashboard (demo interface). Shows clearly labelled sample appointment data only — no real bookings, no database, no authentication.">
+<title>Owner dashboard (demo) — STUDIO 27</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="admin.css">
+<!-- With JavaScript off the gate cannot run, so the shell stays visible exactly
+     as before and the <noscript> notice further down still explains itself. -->
+<noscript><style>.adm-shell[hidden]{display:flex}</style></noscript>
+</head>
+<body class="adm-body">
+<a class="skip-link" href="#admin-main">Skip to dashboard content</a>
+
+<!-- Starts hidden: admin.js reveals it only once the demo session flag checks
+     out, so an unauthenticated visitor is redirected without ever seeing the
+     dashboard. The <noscript> rule in the head restores it when JS is off. -->
+<div class="adm-shell" hidden>
+
+<aside class="adm-sidebar" id="adm-sidebar" aria-label="Dashboard sections">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">27</span><span>STUDIO<span class="clay">27</span><small>OWNER CONSOLE</small></span></a>
+<span class="adm-badge">DEMO MODE</span>
+<nav class="adm-nav" aria-label="Dashboard">
+<ul>
+<li><a href="#dashboard" data-view="dashboard" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Dashboard</a></li>
+<li><a href="#appointments" data-view="appointments"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>Appointments<span class="adm-count" id="navCountAppointments">0</span></a></li>
+<li><a href="#services" data-view="services"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l2.2 5.3L20 10l-5.8 1.7L12 17l-2.2-5.3L4 10l5.8-1.7z"/></svg>Services</a></li>
+<li><a href="#settings" data-view="settings"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h9M18 7h2M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.4"/><circle cx="8" cy="17" r="2.4"/></svg>Settings</a></li>
+</ul>
+</nav>
+<p class="adm-sidebar-note">Sample data only. Nothing here is a real booking and nothing is saved.</p>
+<a class="adm-sidebar-back" href="index.html">← Back to public website</a>
+</aside>
+
+<div class="adm-backdrop" id="adm-backdrop" hidden></div>
+
+<div class="adm-main-col">
+
+<header class="adm-topbar">
+<button class="adm-menu-btn" type="button" id="adm-menu-btn" aria-label="Open dashboard menu" aria-expanded="false" aria-controls="adm-sidebar"><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i></button>
+<div class="adm-topbar-heading">
+<p class="adm-topbar-title">Owner Dashboard</p>
+<p class="adm-topbar-sub"><span id="adm-topbar-view">Dashboard</span><span class="adm-topbar-sep" aria-hidden="true">·</span><time id="adm-topbar-date"></time></p>
+</div>
+<span class="adm-badge adm-badge-inline">DEMO MODE</span>
+<a class="adm-topbar-link" href="index.html">View public site ↗</a>
+<a class="button adm-btn-ghost adm-logout" href="login.html">Log out</a>
+</header>
+
+<main class="adm-main" id="admin-main" tabindex="-1">
+
+<p class="adm-demo-banner"><b>Demo mode.</b> This dashboard is a user-interface demonstration. Every name, date and status below is invented sample data for showing the layout — none of it is a real customer booking. The dashboard is <b>not</b> connected to the public booking form, has <b>no database</b> behind it, and has <b>no real sign-in</b>: a demo login screen exists, but its username and password sit in plain text in <code>login.js</code> for anyone to read. That screen now sets a browser-side session flag which this page checks before it loads, but that is not real protection — the flag can be set by hand in devtools, so this page can still be opened directly by anyone who does. Changes you make here live only in this browser tab and disappear on reload.</p>
+
+<noscript><p class="adm-demo-banner">JavaScript is switched off, so the sample appointments, filters and status controls cannot run. Please enable JavaScript to view this demo.</p></noscript>
+
+<!-- ===================== DASHBOARD ===================== -->
+<section class="adm-view" id="view-dashboard" aria-labelledby="view-dashboard-title" tabindex="-1">
+<header class="adm-view-head">
+<h1 class="adm-view-title" id="view-dashboard-title">Dashboard</h1>
+<p class="adm-view-sub">Sample data for demonstration only. Figures update as you change statuses in Appointments.</p>
+</header>
+
+<div class="adm-cards">
+<article class="adm-card adm-card-total"><p class="adm-card-label">Total appointments</p><p class="adm-stat" id="stat-total">0</p><p class="adm-card-note">All sample records</p></article>
+<article class="adm-card adm-card-pending"><p class="adm-card-label">Pending requests</p><p class="adm-stat" id="stat-pending">0</p><p class="adm-card-note">Waiting for a reply</p></article>
+<article class="adm-card adm-card-confirmed"><p class="adm-card-label">Confirmed appointments</p><p class="adm-stat" id="stat-confirmed">0</p><p class="adm-card-note">Chair booked</p></article>
+<article class="adm-card adm-card-completed"><p class="adm-card-label">Completed appointments</p><p class="adm-stat" id="stat-completed">0</p><p class="adm-card-note">Already served</p></article>
+</div>
+
+<div class="adm-panel">
+<h2 class="adm-panel-title">Status split</h2>
+<p class="adm-panel-sub">How the sample records are distributed right now.</p>
+<div class="adm-split" aria-hidden="true" id="adm-split"></div>
+<ul class="adm-legend" id="adm-legend"></ul>
+</div>
+
+<div class="adm-panel">
+<h2 class="adm-panel-title">Next up</h2>
+<p class="adm-panel-sub">Upcoming pending and confirmed sample requests, earliest first.</p>
+<ul class="adm-list" id="adm-upcoming"></ul>
+</div>
+</section>
+
+<!-- ===================== APPOINTMENTS ===================== -->
+<section class="adm-view" id="view-appointments" aria-labelledby="view-appointments-title" tabindex="-1" hidden>
+<header class="adm-view-head">
+<h1 class="adm-view-title" id="view-appointments-title">Appointments</h1>
+<p class="adm-view-sub">Sample records. Requesting an appointment on the public site does not create a row here.</p>
+</header>
+
+<div class="adm-toolbar" role="group" aria-label="Filter sample appointments">
+<div class="adm-field">
+<label for="filter-search">Search customer</label>
+<input id="filter-search" type="search" placeholder="Type a sample name…" autocomplete="off">
+</div>
+<div class="adm-field">
+<label for="filter-status">Status</label>
+<select id="filter-status">
+<option value="">All statuses</option>
+<option value="Pending">Pending</option>
+<option value="Confirmed">Confirmed</option>
+<option value="Completed">Completed</option>
+<option value="Cancelled">Cancelled</option>
+</select>
+</div>
+<div class="adm-field">
+<label for="filter-service">Service</label>
+<select id="filter-service">
+<option value="">All services</option>
+<option value="Cut &amp; styling">Cut &amp; styling</option>
+<option value="Colour studio">Colour studio</option>
+<option value="Care rituals">Care rituals</option>
+<option value="Event ready">Event ready</option>
+<option value="Help me choose">Help me choose</option>
+</select>
+</div>
+<div class="adm-field adm-field-btn">
+<button class="button adm-btn-ghost" type="button" id="filter-clear">Clear filters</button>
+</div>
+</div>
+
+<p class="adm-result-count" id="result-count" role="status" aria-live="polite">Showing 0 of 0 sample records</p>
+
+<div class="adm-table-wrap">
+<table class="adm-table">
+<caption class="adm-sr-only">Sample appointment records for demonstration purposes only</caption>
+<thead>
+<tr><th scope="col">Reference</th><th scope="col">Customer</th><th scope="col">Service</th><th scope="col">Date</th><th scope="col">Time</th><th scope="col">Status</th><th scope="col">Actions</th></tr>
+</thead>
+<tbody id="appointments-body"></tbody>
+</table>
+</div>
+<p class="adm-note">The status menu in the <b>Actions</b> column is a demo control. Real status changes will be saved once the database is added in the next phase — nothing is stored today.</p>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section class="adm-view" id="view-services" aria-labelledby="view-services-title" tabindex="-1" hidden>
+<header class="adm-view-head">
+<h1 class="adm-view-title" id="view-services-title">Services</h1>
+<p class="adm-view-sub">The four services shown on the public site, with their placeholder prices.</p>
+</header>
+
+<div class="adm-table-wrap">
+<table class="adm-table">
+<caption class="adm-sr-only">Services currently offered, with placeholder prices</caption>
+<thead>
+<tr><th scope="col">Service</th><th scope="col">Demo price</th><th scope="col">Availability</th><th scope="col">Actions</th></tr>
+</thead>
+<tbody id="services-body"></tbody>
+</table>
+</div>
+
+<p class="adm-demo-banner adm-demo-banner-tight"><b>Placeholder prices, temporary edits.</b> These figures are invented demo values taken from the public site and must be replaced with the salon's real, confirmed prices before this is shown to a client. Adding, editing and deleting services below is a demonstration: nothing is saved — no database and no browser storage — so the original four sample services return when the page reloads.</p>
+<div class="adm-actions"><button class="button adm-btn" type="button" id="services-add">Add a service</button></div>
+
+<div class="adm-panel" id="service-form" hidden>
+<h2 class="adm-panel-title" id="service-form-title">Add a service</h2>
+<p class="adm-panel-sub">Demo only — this change is not saved and disappears on reload.</p>
+<div class="adm-toolbar" role="group" aria-label="Service details">
+<div class="adm-field">
+<label for="service-name">Service name</label>
+<input id="service-name" type="text" autocomplete="off">
+</div>
+<div class="adm-field">
+<label for="service-price">Demo price (₹)</label>
+<input id="service-price" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 299">
+</div>
+<div class="adm-field adm-field-btn">
+<button class="button adm-btn" type="button" id="service-save">Save service</button>
+</div>
+<div class="adm-field adm-field-btn">
+<button class="button adm-btn-ghost" type="button" id="service-cancel">Cancel</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================== SETTINGS ===================== -->
+<section class="adm-view" id="view-settings" aria-labelledby="view-settings-title" tabindex="-1" hidden>
+<header class="adm-view-head">
+<h1 class="adm-view-title" id="view-settings-title">Settings</h1>
+<p class="adm-view-sub">Read-only summary of how this demo is wired.</p>
+</header>
+
+<div class="adm-panel">
+<h2 class="adm-panel-title">How this demo works</h2>
+<dl class="adm-dl">
+<div><dt>Dashboard mode</dt><dd>Demo — sample data only</dd></div>
+<div><dt>Data source</dt><dd>Invented sample records inside <code>admin.js</code></dd></div>
+<div><dt>Storage</dt><dd>None. Changes reset when the page reloads.</dd></div>
+<div><dt>Connected to booking form</dt><dd>No. The public WhatsApp form and this dashboard are separate.</dd></div>
+<div><dt>Database</dt><dd>Not implemented — planned for the next phase</dd></div>
+<div><dt>Authentication</dt><dd>Demo login only. The credentials are hard-coded in <code>login.js</code> and readable by anyone, and although <code>admin.html</code> now checks a browser-side session flag set at sign-in, it is still not protected — the flag can be faked, so direct access cannot be truly blocked.</dd></div>
+<div><dt>WhatsApp request number</dt><dd>916297519708 <span class="adm-dl-note">(authorised testing number, set in <code>script.js</code>)</span></dd></div>
+</dl>
+<p class="adm-demo-banner adm-demo-banner-tight"><b>The demo sign-in screen is decoration, not protection.</b> <a href="login.html">login.html</a> checks a username and password that are written in plain text in <code>login.js</code>, so anyone who views the page source can read them. It stores no session beyond a single browser-side flag, and that flag is all that guards this dashboard: anyone who sets it by hand can open <code>admin.html</code> directly. It exists only so the demonstration has an entry point. Real owner authentication — verified on a server, with hashed credentials — arrives with the database phase.</p>
+</div>
+
+<div class="adm-panel">
+<h2 class="adm-panel-title">Business details still to confirm</h2>
+<p class="adm-panel-sub">Carried over from the public website. None of these are verified information.</p>
+<dl class="adm-dl">
+<div><dt>Prices</dt><dd>Placeholder</dd></div>
+<div><dt>Street address</dt><dd>Placeholder — “Bankura, West Bengal” only</dd></div>
+<div><dt>Opening hours</dt><dd>Placeholder — “Every day · 10 AM – 8 PM”</dd></div>
+<div><dt>Phone, email, social links</dt><dd>Not supplied</dd></div>
+<div><dt>Photography</dt><dd>Illustrative stock images</dd></div>
+</dl>
+<div class="adm-actions">
+<button class="button adm-btn-ghost" type="button" id="settings-reset">Reset sample data</button>
+<a class="button adm-btn" href="index.html">Open public website ↗</a>
+</div>
+</div>
+</section>
+
+</main>
+</div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="admin.js"></script>
+</body>
+</html>

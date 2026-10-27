@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f4efe6">
+<!-- Demo sign-in screen: deliberately kept out of search engines. -->
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="STUDIO 27 owner sign-in — demonstration only. These credentials are visible in login.js and are not real authentication.">
+<title>Owner sign-in (demo) — STUDIO 27</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="login.css">
+</head>
+<body class="login-body">
+<a class="skip-link" href="#login-main">Skip to sign-in form</a>
+
+<main class="login-main" id="login-main" tabindex="-1">
+
+<div class="login-card">
+
+<a class="brand login-brand" href="index.html"><span class="brand-mark" aria-hidden="true">27</span><span>STUDIO<span class="clay">27</span><small>OWNER CONSOLE</small></span></a>
+
+<p class="eyebrow login-eyebrow"><span aria-hidden="true">✳</span> &nbsp; OWNER ACCESS</p>
+<h1 class="login-title">Sign in to <em>your dashboard</em></h1>
+<p class="login-sub">The appointments dashboard is a demonstration interface. Sign in to take a look around.</p>
+
+<p class="login-warning" role="note"><b>DEMO LOGIN ONLY — NOT SECURE FOR REAL CLIENT DATA.</b> This is a front-end imitation of a sign-in screen, not real authentication. The username and password are written in plain text in <code>login.js</code> for anyone to read, nothing is verified on a server, and the only thing that guards the dashboard is a session flag this page writes into the browser — anyone can set the same flag by hand, so that is not real protection.</p>
+
+<form class="login-form" id="login-form" method="post" action="#signin">
+
+<div class="login-field">
+<label for="login-username">Username</label>
+<input id="login-username" name="username" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+</div>
+
+<div class="login-field">
+<label for="login-password">Password</label>
+<div class="login-password">
+<input id="login-password" name="password" type="password" autocomplete="current-password" required>
+<button class="login-toggle" type="button" id="toggle-password" aria-controls="login-password" aria-pressed="false" aria-label="Show password">Show</button>
+</div>
+</div>
+
+<p class="login-error" id="login-error" role="alert" hidden></p>
+
+<button class="button dark login-submit" type="submit">Sign in <span aria-hidden="true">→</span></button>
+
+</form>
+
+<noscript><p class="login-error">JavaScript is switched off, so sign-in cannot run. Please enable JavaScript to try this demo.</p></noscript>
+
+<p class="login-demo-creds"><b>How to sign in</b><span>Username <code>admin</code></span><span>Password — not printed on this page on purpose. It is set in <code>login.js</code>.</span></p>
+
+<p class="login-foot">These credentials are hard-coded in <code>login.js</code> and are visible to anyone who opens the file. Signing in only sets a browser-side session flag that <code>admin.html</code> checks, and that flag can be faked in devtools, so <code>admin.html</code> can still be opened directly. Real owner authentication is planned for a later phase.</p>
+
+<p class="login-foot"><a class="login-back" href="index.html">← Back to the public website</a></p>
+
+</div>
+
+</main>
+
+<script src="login.js"></script>
+</body>
+</html>
